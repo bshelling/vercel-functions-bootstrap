@@ -1,38 +1,32 @@
 import * as esb from 'esbuild'
-import { readFileSync, readdirSync, rmSync } from 'node:fs'
+import { rmSync, readdirSync} from 'node:fs'
 
 const run = async () => {
 	console.log("Building....")
 
 	rmSync("api", {
-	force: true,
-	recursive: true,
+		force: true,
+		recursive: true,
 	});
 
 	const files = readdirSync("src/functions");
 
-	var entryPoints = [];
-	files.map((file) => {
-	if (file.match(/\w+\.ts/)) {
-		entryPoints.push(`src/functions/${file}`);
-	}
+	files.map(async (file) => {
+		if (file.match(/\w+\.ts/)) {
+		const result = await esb.build({
+			entryPoints: [`src/functions/${file}`],
+			outdir: 'api',
+			platform: "node",
+			target: "es2022",
+			bundle: true,
+			minify: process.env.NODE_ENV == 'dev' ? false : true,
+			sourcemap: process.env.NODE_ENV == 'dev' ? true : false,
+			metafile: true
+		})
+			console.log(await esb.analyzeMetafile(result.metafile))
+			await console.log("Build complete")
+		}
 	});
-
-	const result = await esb.build({
-		bundle: false,
-		entryPoints: entryPoints,
-		outdir: 'api',
-		platform: 'node',
-		minify: process.env.NODE_ENV == 'dev' ? false : true,
-		sourcemap: process.env.NODE_ENV == 'dev' ? true : false,
-		metafile: true
-	})
-	console.log(await esb.analyzeMetafile(result.metafile))
-	await console.log("Build complete")
 }
 
 run()
-
-
-
-
