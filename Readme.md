@@ -32,4 +32,4 @@ The package.json file also lists the dependencies for the project, which are esb
 
 
 ## Contact
-Developer - B.Shellig [info@gusotechnologies.com](info@gusotechnologies.com)
+Developer - B.Shelling [info@gusotechnologies.com](info@gusotechnologies.com)
