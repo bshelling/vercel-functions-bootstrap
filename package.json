@@ -1,0 +1,24 @@
+{
+  "name": "vfunctionbootstrap",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "v:serve": "NODE_ENV=dev vercel dev",
+    "v:buildProd": "NODE_ENV=prod node esbuild.config.mjs",
+    "v:buildDev": "NODE_ENV=dev node esbuild.config.mjs",
+    "v:deploy": "vercel deploy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "esbuild": "0.17.18",
+    "vercel": "^28.20.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.4"
+  }
+}
